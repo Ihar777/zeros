@@ -2,6 +2,7 @@ module.exports = function zeros(expression) {
 
   var count = 0;
 
+  var even = 0;
   var number_arr = expression.split('*');
 // получается массив строк вида '8!' и '12!!'
 
@@ -11,9 +12,20 @@ module.exports = function zeros(expression) {
     number_arr[i][number_arr[i].length - 2] != '!') {
       let number = +number_arr[i].replace('!', '');
   for(let k = 1; k <= number; k++) {
+
+    // find out how many even multipliers
+    let t = k;
+    while(t%2 == 0) {
+      t = t/2;
+      even++;
+    }
+
     let j = k;
     while(j%5 == 0) {
       j = j/5;
+      if(j == 5) {
+        count++;
+      }
       count++;
     }
   }
@@ -21,6 +33,12 @@ module.exports = function zeros(expression) {
 } else {
   let number = +number_arr[i].replace(/!/g, '');
   for(let k = number; k > 0; k-=2) {
+
+    let t = k;
+    while(t%2 == 0) {
+      t = t/2;
+      even++;
+    }
 
       if((k > 4) && (k%2 == 1) && (k%5 == 0)) {
           count++;
@@ -33,9 +51,16 @@ module.exports = function zeros(expression) {
          let j = k/5;
       while(j%5 == 0) {
         j = j/5;
+        if(j == 5) {
+          count++;
+        }
         count++;
       }
       }
+  }
+
+  if(count > even) {
+    count = even;
   }
 
 }
@@ -44,3 +69,19 @@ module.exports = function zeros(expression) {
 
   return count;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
