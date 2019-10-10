@@ -1,10 +1,7 @@
 module.exports = function zeros(expression) {
-
   var count = 0;
-
   var even = 0;
   var number_arr = expression.split('*');
-// получается массив строк вида '8!' и '12!!'
 
   for(let i = 0; i < number_arr.length; i++) {
 
@@ -23,15 +20,18 @@ module.exports = function zeros(expression) {
     let j = k;
     while(j%5 == 0) {
       j = j/5;
-      if(j == 5) {
-        count++;
-      }
       count++;
     }
   }
 
+  if(count > even) {
+    count = even;
+  }
+
 } else {
+  
   let number = +number_arr[i].replace(/!/g, '');
+
   for(let k = number; k > 0; k-=2) {
 
     let t = k;
@@ -40,25 +40,37 @@ module.exports = function zeros(expression) {
       even++;
     }
 
-      if((k > 4) && (k%2 == 1) && (k%5 == 0)) {
-          count++;
+      if((k%2 == 1) && (k%5 == 0)) {
+         count++;
+
+         let j = k/5;
+
+         while(j%5 == 0) {
+           j = j/5;
+            count++;
+         }
+         
       }
 
-
-     
-      if(k%10 == 0 && number%2 == 0) {
+      if(k%10 == 0) {
+        
+        let t = k;
+        while(t%2 == 0) {
+          t = t/2;
+          even++;
+        }
+        
         count++;
-         let j = k/5;
+        let j = k/5;
+
       while(j%5 == 0) {
         j = j/5;
-        if(j == 5) {
-          count++;
-        }
-        count++;
+         count++;
       }
+
       }
   }
-
+  
   if(count > even) {
     count = even;
   }
@@ -69,19 +81,3 @@ module.exports = function zeros(expression) {
 
   return count;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
